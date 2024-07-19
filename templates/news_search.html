@@ -1,0 +1,33 @@
+{% extends 'flatpages/default.html' %}
+
+{% load custom_tags %}
+
+{% block content %}
+<h1>Поиск новостей</h1>
+<hr>
+<form action="" method="get">
+    {{ filterset.form.as_p }}
+    <input type="submit" value="Найти">
+</form>
+    {% if post_search %}
+        <table>
+            <tr>
+                <td>Заголовок</td>
+                <td>Текст</td>
+                <td>Дата</td>
+            </tr>
+            {% for post in post_search %}
+            <tr>
+                <td>{{post.header}}</td>
+                <td>{{post.text|truncatechars:20}}</td>
+                <td>{{post.date_time}}</td>
+            </tr>
+            {% endfor %}
+
+        </table>
+
+    {% else %}
+        <h2>Постов нет!</h2>
+    {% endif %}
+
+{% endblock content %}

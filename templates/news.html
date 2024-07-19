@@ -1,0 +1,57 @@
+{% extends 'flatpages/default.html' %}
+
+{% load custom_filters %}
+
+{% block title %}
+Posts
+{% endblock title %}
+
+{% block content %}
+   <h1>Все новости</h1>
+   <h3>{{ time_now|date:'M d Y' }}</h3>
+   <h3> Количество новостей : {{ post | length }} </h3>
+   <h3> {{ next_sale|default_if_none:'Следите за новостями!' }} </h3>
+   <hr>
+   {% if posts %}
+       <table>
+           <tr>
+               <td>Заголовок</td>
+               <td>Опубликовано</td>
+               <td>Содержание</td>
+           </tr>
+           {% for Post in post %}
+           <tr>
+               <td>{{ Post.title | censor }}</td>
+               <td>{{ Post.create_time }}</td>
+               <td>{{ Post.text | truncatewords:20 | censor }}</td>
+
+
+           </tr>
+           {% endfor %}
+
+       </table>
+   {% else %}
+       <h2>Новостей нет</h2>
+
+   {% endif %}
+
+
+    {% if page_obj.has_previous %}
+       <a href="?page=1">Первая страница</a> {# 'Первая страница' #}
+       {% if page_obj.previous_page_number > 2 %}
+           ...
+       {% endif %}
+       <a href="?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a>
+   {% endif %}
+
+   {{ page_obj.number }}
+
+   {% if page_obj.has_next %}
+       <a href="?page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a>
+       {% if paginator.num_pages != page_obj.next_page_number %}
+           <a href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}</a>
+       {% endif %}
+       <a href="?page={{ page_obj.paginator.num_pages }}">Последняя страница</a> {# 'Последняя страница' #}
+   {% endif %}
+
+{% endblock content %}

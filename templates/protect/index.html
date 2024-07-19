@@ -1,0 +1,14 @@
+{% extends "flatpages/default.html" %}
+
+{% block body %}
+<h2> Личный кабинет {{request.user.username}}</h2>
+<div>
+   Данные пользователя
+</div>
+
+{% if is_not_author %}
+<button> <a href="sign/upgrade/"> Стать автором</a> </button>
+{% endif %}
+
+<button> <a href="sign/logout/">Выход</a> </button>
+{% endblock body %}

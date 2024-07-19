@@ -1,0 +1,18 @@
+{% extends 'flatpages/default.html' %}
+
+{% block title %}
+Категории
+{% endblock title %}
+
+{% block body %}
+
+<h1>Категории</h1>
+<hr>
+
+{% for item in categories %}
+
+<p><a href={{item.id}}>{{ item.category_name }}</a></p>
+
+{% endfor %}
+
+{% endblock body %}
